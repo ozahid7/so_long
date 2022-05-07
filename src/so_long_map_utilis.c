@@ -6,7 +6,7 @@
 /*   By: ozahid- <ozahid-@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/01 02:34:29 by ozahid-           #+#    #+#             */
-/*   Updated: 2022/05/01 06:48:57 by ozahid-          ###   ########.fr       */
+/*   Updated: 2022/05/07 22:41:18 by ozahid-          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -108,12 +108,17 @@ int check_map(t_map map)
 			return (2);
 		while (++j < map.len_line - 1)
 		{
+			if ((map.map[i][j] != 'C') && (map.map[i][j] != 'P')
+				&& (map.map[i][j] != 'E') && (map.map[i][j] != '0')
+				&& (map.map[i][j] != '1'))
+				return (4);
 			elm.c += (map.map[i][j] == 'C');
 			elm.p += (map.map[i][j] == 'P');
 			elm.e += (map.map[i][j] == 'E');
 		}
 		i++;
 	}
+	//printf("this is c%d\n", elm.c);
 	if (elm.c == 0 || elm.e == 0 || elm.p != 1)
 		return (3);
 	return(0);
