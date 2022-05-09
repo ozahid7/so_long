@@ -6,7 +6,7 @@
 /*   By: ozahid- <ozahid-@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/01 02:34:29 by ozahid-           #+#    #+#             */
-/*   Updated: 2022/05/07 22:41:18 by ozahid-          ###   ########.fr       */
+/*   Updated: 2022/05/09 22:10:55 by ozahid-          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,8 +64,6 @@ int check_line_len(t_map map, t_element *elm)
 			return(1);
 		i++;
 	}
-	if (map.len_line != (ft_strlen(map.map[i]) + (map.map[i][ft_strlen(map.map[i]) - 1] != '\n')))
-		return (1);
 	i = 0;
 	while (i < map.len_line - 1)
 	{
@@ -81,11 +79,35 @@ int check_side_wals(t_map map)
 	int i;
 	
 	i = 1;
+	if (map.len_line > 65)
+		return(9);
+	if (map.len  == map.len_line - 1)
+		return (7);
 	while (i < map.len - 1)
 	{
 		if (map.map[i][0] != '1' || map.map[i][map.len_line - 2] != '1')
-			return (88888);
+			return (6);
 		i++;
+	}
+	return (0);
+}
+
+int check_vertical_walls(t_map map)
+{
+	int i;
+	int j;
+	
+	j = 1;
+	while (j < map.len_line - 2)
+	{
+		i = 1;
+		while (map.map[i][j] == '1' || map.map[i][j] == 'E')
+		{
+			i++;
+			if (i == map.len - 1)
+				return (8);
+		}
+		j++;
 	}
 	return (0);
 }
@@ -95,17 +117,18 @@ int check_map(t_map map)
 	t_element elm;
 	int i;
 	int j;
-	
 	i = 1;
+	if (check_vertical_walls(map))
+		return (8);
 	if (check_line_len(map, &elm))
-		return (100);
+		return (7);
 	if (check_side_wals(map))
-		return (8000);
+		return (6);
 	while (i < map.len - 1)
 	{
 		j = -1;
 		if (map.map[i][0] != '1' && map.map[i][map.len_line - 1] != '1')
-			return (2);
+			return (5);
 		while (++j < map.len_line - 1)
 		{
 			if ((map.map[i][j] != 'C') && (map.map[i][j] != 'P')
@@ -118,8 +141,7 @@ int check_map(t_map map)
 		}
 		i++;
 	}
-	//printf("this is c%d\n", elm.c);
-	if (elm.c == 0 || elm.e == 0 || elm.p != 1)
+	if (elm.c == 0 || elm.e == 0 || elm.p > 1)
 		return (3);
 	return(0);
 }

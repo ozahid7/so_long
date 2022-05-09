@@ -6,7 +6,7 @@
 /*   By: ozahid- <ozahid-@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/01 02:37:05 by ozahid-           #+#    #+#             */
-/*   Updated: 2022/05/07 22:49:37 by ozahid-          ###   ########.fr       */
+/*   Updated: 2022/05/09 22:52:08 by ozahid-          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -100,7 +100,6 @@ void put_image(t_main ptr)
 	i = 0;
 	while (i < ptr.map.len)
 	{
-		//don't forget to check the case where a charecter is undefined
 		j = 0;
 		while( j < ptr.map.len_line - 1)
 		{
@@ -111,63 +110,89 @@ void put_image(t_main ptr)
 	}
 }
 
-int ft_checkmap_char(t_main ptr)
+int ft_countcollect(t_map map)
 {
-	t_cord a;
-	a.y = 1;
-	while (a.y < ptr.map.len - 1)
+	int i;
+	int j;
+	int c;
+	
+	c = 0;
+	i = 1;
+	while (i < map.len - 1)
 	{
-		 a.x = 1;
-		while (a.x < ptr.map.len_line)
+		j = 1;
+		while (j < map.len_line - 1)
 		{
-			if (ptr.map.map[a.y][a.x] != 'P' || ptr.map.map[a.y][a.x] != 'E' 
-				|| ptr.map.map[a.y][a.x] != 'C' || ptr.map.map[a.y][a.x] != '1' || ptr.map.map[a.y][a.x] != '0')
-				return (1);
-				a.x++;
+			if (map.map[i][j] == 'C')
+				c++;
+			j++;
 		}
-		a.y++;
+		i++;
 	}
-	return (0);
+	return (c);
 }
+
 
 int ft_key(int key_code, t_main *ptr)
 {
 	(void)ptr;
-	printf("%d\n", key_code);
+	static int i;
 	static int x = 1;
 	static int y = 1;
+	static int c;
+	
+	c = ft_countcollect(ptr->map);
+	printf("c = %d \n", c);
 	mlx_put_image_to_window(ptr->mlx_ptr, ptr->mlx_win, get_image(ptr->images, '0'), x * 40, y * 40);
-	if ((key_code == 2 || key_code == 124) && x < ptr->map.len_line - 3 && ptr->map.map[y][x + 1] != '1')
+	if ((key_code == 2 || key_code == 124) && x < ptr->map.len_line - 3 && ptr->map.map[y][x + 1] != '1' && ptr->map.map[y][x + 1] != 'E')
+	{
+		if (ptr->map.map[y][x + 1] == 'C')
+			c--;
 		x++;
-	if ((key_code == 0 || key_code == 123) && x > 1 && ptr->map.map[y][x - 1] != '1')
+	}
+	if ((key_code == 0 || key_code == 123) && x > 1 && ptr->map.map[y][x - 1] != '1' && ptr->map.map[y][x - 1] != 'E')
+	{
+		if (ptr->map.map[y][x - 1] == 'C')
+			c--;
 		x--;
-	if ((key_code == 1 || key_code == 125) && y < ptr->map.len - 2 && ptr->map.map[y + 1][x] != '1')
+	}
+	if ((key_code == 1 || key_code == 125) && y < ptr->map.len - 2 && ptr->map.map[y + 1][x] != '1' && ptr->map.map[y + 1][x] != 'E')
+	{
+		if (ptr->map.map[y + 1][x] == 'C')
+			c--;
 		y++;
-	if ((key_code == 13 || key_code == 126) && y > 1 && ptr->map.map[y - 1][x] != '1')
+	}
+	if ((key_code == 13 || key_code == 126) && y > 1 && ptr->map.map[y - 1][x] != '1' && ptr->map.map[y - 1][x] != 'E')
+	{
+		if (ptr->map.map[y - 1][x] == 'C')
+			c--;
 		y--;
+	}
 	mlx_put_image_to_window(ptr->mlx_ptr, ptr->mlx_win, get_image(ptr->images, 'P'), x * 40, y * 40);
+	if (c == 0 )
+		exit(0);
+	i++;
+	ft_printf("%d\n", i);
 	return (0);
 }
+
 
 int	main(int ac, char **av)
 {
 	t_main  ptr;
-	t_map map;
-	 int x = 1;
-	 int y = 1;
-	if (ac != 2)
+	
+		if (ac != 2)
 		return (ft_printf("arguments error"), 0);
-	if(check_map(map.map[y][x]))
-	 	return (ft_printf("map characters error"), 0);
 	if (check_ber(av[1]))
 	{
 		if (!read_map(av[1], &ptr.map))
 			return (0);
-		ft_printf("error %d \n", check_map(ptr.map));
+		if (check_map(ptr.map))
+			return (ft_printf("map error"), 0);
 		ft_init(&ptr);
 		init_image(&ptr.images, ptr.mlx_ptr);
 		put_image(ptr);
 	}
-	mlx_key_hook(ptr.mlx_win, &ft_key, &ptr);
+	mlx_hook(ptr.mlx_win, 2, 0, ft_key, &ptr);
 	mlx_loop(ptr.mlx_ptr);
 }
