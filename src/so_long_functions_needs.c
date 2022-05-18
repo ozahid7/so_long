@@ -6,7 +6,7 @@
 /*   By: ozahid- <ozahid-@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/01 06:23:20 by ozahid-           #+#    #+#             */
-/*   Updated: 2022/05/13 19:28:53 by ozahid-          ###   ########.fr       */
+/*   Updated: 2022/05/18 23:07:04 by ozahid-          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ int	ft_init(t_main *ptr)
 	if (ptr->mlx_ptr == NULL)
 		return (1);
 	ptr->mlx_win = mlx_new_window(ptr->mlx_ptr,
-			(ptr->map.len_line - 1) * 40, ptr->map.len * 40, "ha2");
+			(ptr->map.len_line - 1) * 40, ptr->map.len * 40, "so_long");
 	if (ptr->mlx_win == NULL)
 	{
 		free(ptr->mlx_win);

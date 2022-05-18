@@ -6,7 +6,7 @@
 /*   By: ozahid- <ozahid-@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/01 02:20:25 by ozahid-           #+#    #+#             */
-/*   Updated: 2022/05/18 22:57:54 by ozahid-          ###   ########.fr       */
+/*   Updated: 2022/05/18 23:09:25 by ozahid-          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,7 +96,7 @@ void	ft_goright(int key_code, t_main *ptr);
 void	ft_goleft(int key_code, t_main *ptr);
 void	ft_godown(int key_code, t_main *ptr);
 void	ft_goup(int key_code, t_main *ptr);
-int		ft_exit(int mouse_key, t_main *ptr);
+int		ft_exit(t_main *ptr);
 
 void	*get_image(t_image *img, char type);
 void	put_image(t_main ptr);
