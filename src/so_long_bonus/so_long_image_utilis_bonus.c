@@ -6,7 +6,7 @@
 /*   By: ozahid- <ozahid-@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/11 22:07:37 by ozahid-           #+#    #+#             */
-/*   Updated: 2022/05/18 16:14:53 by ozahid-          ###   ########.fr       */
+/*   Updated: 2022/05/18 21:24:54 by ozahid-          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,7 @@ void	put_image(t_main ptr)
 	}
 }
 
-void    init_image2(t_image **img, void *mlxptr)
+void	init_image2(t_image **img, void *mlxptr)
 {
 	(*img)[5].img = mlx_xpm_file_to_image(mlxptr,
 			"/Users/ozahid-/Desktop/enemy.xpm",

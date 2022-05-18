@@ -6,7 +6,7 @@
 /*   By: ozahid- <ozahid-@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/01 02:34:29 by ozahid-           #+#    #+#             */
-/*   Updated: 2022/05/18 16:20:04 by ozahid-          ###   ########.fr       */
+/*   Updated: 2022/05/18 21:24:11 by ozahid-          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -116,7 +116,7 @@ int	check_map(t_map map)
 		elm.i++;
 	}
 	countchar(&elm);
-	if (elm.c == 0 || elm.e == 0 || elm.p > 1 || elm.n == 0)
+	if (elm.c == 0 || elm.e == 0 || elm.p > 1 || elm.n < 0 || elm.n > 1)
 		return (3);
 	return (0);
 }

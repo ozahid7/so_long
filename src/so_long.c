@@ -6,7 +6,7 @@
 /*   By: ozahid- <ozahid-@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/01 02:37:05 by ozahid-           #+#    #+#             */
-/*   Updated: 2022/05/14 15:58:06 by ozahid-          ###   ########.fr       */
+/*   Updated: 2022/05/18 21:25:57 by ozahid-          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,7 +70,6 @@ int	ft_countcollect(t_map map)
 	}
 	return (c);
 }
-
 
 int	ft_key(int key_code, t_main *ptr)
 {

@@ -6,7 +6,7 @@
 /*   By: ozahid- <ozahid-@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/17 21:04:47 by ozahid-           #+#    #+#             */
-/*   Updated: 2022/05/18 16:18:13 by ozahid-          ###   ########.fr       */
+/*   Updated: 2022/05/18 21:01:31 by ozahid-          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,7 +88,7 @@ t_element	countchar(t_element *elm)
 			elm->c += (map.map[elm->i][elm->j] == 'C');
 			elm->p += (map.map[elm->i][elm->j] == 'P');
 			elm->e += (map.map[elm->i][elm->j] == 'E');
-			elm->e += (map.map[elm->i][elm->j] == 'N');
+			elm->n += (map.map[elm->i][elm->j] == 'N');
 		}
 		elm->i++;
 	}
