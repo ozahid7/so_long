@@ -6,17 +6,17 @@
 /*   By: ozahid- <ozahid-@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/01 02:34:29 by ozahid-           #+#    #+#             */
-/*   Updated: 2022/05/09 22:10:55 by ozahid-          ###   ########.fr       */
+/*   Updated: 2022/05/18 15:35:23 by ozahid-          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "so_long.h"
 
-char ** ft_copy(char **str, int len, char *allocate)
+char	**ft_copy(char **str, int len, char *allocate)
 {
-	int i;
-	char **ptr;
-	
+	int		i;
+	char	**ptr;
+
 	ptr = malloc(sizeof(char *) * (len + 2));
 	i = 0;
 	if (str != NULL)
@@ -32,28 +32,28 @@ char ** ft_copy(char **str, int len, char *allocate)
 	return (ptr);
 }
 
-char **ft_realloc(char **str, char *allocate)
+char	**ft_realloc(char **str, char *allocate)
 {
-	int lt;
-	char **ptr;
-	
+	int		lt;
+	char	**ptr;
+
 	lt = 0;
 	if (str == NULL)
 		lt = 1;
-	else 
+	else
 	{
 		while (str[lt])
 			lt++;
 	}
 	ptr = ft_copy(str, lt, allocate);
-	free(str);
+	free (str);
 	return (ptr);
 }
 
-int check_line_len(t_map map, t_element *elm)
+int	check_line_len(t_map map, t_element *elm)
 {
-	int i;
-	
+	int	i;
+
 	i = 1;
 	elm->c = 0;
 	elm->e = 0;
@@ -61,27 +61,27 @@ int check_line_len(t_map map, t_element *elm)
 	while (i < map.len - 1)
 	{
 		if (map.len_line != ft_strlen(map.map[i]))
-			return(1);
+			return (1);
 		i++;
 	}
 	i = 0;
 	while (i < map.len_line - 1)
 	{
 		if (map.map[0][i] != '1' || map.map[map.len - 1][i] != '1')
-			return(2);
+			return (2);
 		i++;
 	}
 	return (0);
 }
 
-int check_side_wals(t_map map)
+int	check_side_wals(t_map map)
 {
-	int i;
-	
+	int	i;
+
 	i = 1;
 	if (map.len_line > 65)
-		return(9);
-	if (map.len  == map.len_line - 1)
+		return (9);
+	if (map.len == map.len_line - 1)
 		return (7);
 	while (i < map.len - 1)
 	{
@@ -92,56 +92,31 @@ int check_side_wals(t_map map)
 	return (0);
 }
 
-int check_vertical_walls(t_map map)
+int	check_map(t_map map)
 {
-	int i;
-	int j;
-	
-	j = 1;
-	while (j < map.len_line - 2)
-	{
-		i = 1;
-		while (map.map[i][j] == '1' || map.map[i][j] == 'E')
-		{
-			i++;
-			if (i == map.len - 1)
-				return (8);
-		}
-		j++;
-	}
-	return (0);
-}
+	t_element	elm;
 
-int check_map(t_map map)
-{
-	t_element elm;
-	int i;
-	int j;
-	i = 1;
+	elm.i = 0;
 	if (check_vertical_walls(map))
 		return (8);
 	if (check_line_len(map, &elm))
 		return (7);
-	if (check_side_wals(map))
-		return (6);
-	while (i < map.len - 1)
+	while (++elm.i < map.len - 1)
 	{
-		j = -1;
-		if (map.map[i][0] != '1' && map.map[i][map.len_line - 1] != '1')
-			return (5);
-		while (++j < map.len_line - 1)
+		elm.j = -1;
+		while (++elm.j < map.len_line - 1)
 		{
-			if ((map.map[i][j] != 'C') && (map.map[i][j] != 'P')
-				&& (map.map[i][j] != 'E') && (map.map[i][j] != '0')
-				&& (map.map[i][j] != '1'))
+			if ((map.map[elm.i][elm.j] != 'C') && (map.map[elm.i][elm.j] != 'P')
+				&& (map.map[elm.i][elm.j] != 'E')
+					&& (map.map[elm.i][elm.j] != '0')
+				&& (map.map[elm.i][elm.j] != '1'))
 				return (4);
-			elm.c += (map.map[i][j] == 'C');
-			elm.p += (map.map[i][j] == 'P');
-			elm.e += (map.map[i][j] == 'E');
+			elm.c += (map.map[elm.i][elm.j] == 'C');
+			elm.p += (map.map[elm.i][elm.j] == 'P');
+			elm.e += (map.map[elm.i][elm.j] == 'E');
 		}
-		i++;
 	}
 	if (elm.c == 0 || elm.e == 0 || elm.p > 1)
 		return (3);
-	return(0);
+	return (0);
 }

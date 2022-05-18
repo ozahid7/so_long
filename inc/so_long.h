@@ -6,7 +6,7 @@
 /*   By: ozahid- <ozahid-@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/01 02:20:25 by ozahid-           #+#    #+#             */
-/*   Updated: 2022/05/09 22:02:58 by ozahid-          ###   ########.fr       */
+/*   Updated: 2022/05/13 21:54:58 by ozahid-          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,8 +65,12 @@ typedef struct s_main
 	void    *mlx_ptr;
 	void    *mlx_win;
 	t_image *images;
+	t_cord pos;
 	t_map   map;
 	t_data img;
+	int c;
+	int j;
+	int moves;
 } t_main;
 
 
@@ -74,6 +78,8 @@ typedef struct s_element{
 	int c;
 	int p;
 	int e;
+	int i;
+	int j;
 } t_element;
 
 
@@ -82,15 +88,24 @@ typedef struct s_element{
 int check_line_len(t_map map, t_element *elm);
 int check_side_wals(t_map map);
 int check_map(t_map map);
+t_map   *read_map(char *path, t_map *map);
+int check_vertical_walls(t_map map);
 char **ft_realloc(char **str, char *allocate);
 char ** ft_copy(char **str, int len, char *allocate);
 void	my_mlx_pixel_put(t_data *data, int x, int y, int color);
+int check_ber(char *str);
+int ft_init(t_main *ptr);
+int check_ber(char *str);
 
+//so_long_movmentfunctions
+void ft_goright(int key_code, t_main *ptr);
+void ft_goleft(int key_code, t_main *ptr);
+void ft_godown(int key_code, t_main *ptr);
+void ft_goup(int key_code, t_main *ptr);
+int	ft_exit(int mouse_key, t_main *ptr);
 
-
-
-
-
-
-
+//so_long_images_functions
+void *get_image(t_image *img, char type);
+void put_image(t_main ptr);
+void init_image(t_image **img, void *mlxptr);
 #endif
